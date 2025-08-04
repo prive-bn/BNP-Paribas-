@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="fr"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Argenta Banque - Connexion</title> 
+  <link rel="stylesheet" href="style.css"> 
+  <link rel="icon" href="https://www.argenta.be/etc.clientlibs/argenta/clientlibs/clientlib-base/resources/img/favicon/favicon-32x32.png" type="image/png"> 
+ <style type="text/css" id="dcoder_stylesheet">/* Styles généraux et variables */
+:root {
+    --argenta-green: #008751;
+    --white: #ffffff;
+    --light-gray: #f4f4f4;
+    --dark-gray: #333;
+    --red-alert: #ff0000;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Conteneur principal pour centrer le contenu */
+.login-container, #main-content {
+    width: 100%;
+    max-width: 420px;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .login-container, body {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+     #main-content {
+        padding-bottom: 80px; /* Espace pour la nav barre */
+    }
+}
+
+/* Styles de la page de connexion */
+.login-container {
+    text-align: center;
+}
+
+.logo {
+    max-width: 180px;
+    margin-bottom: 1.5rem;
+}
+
+h1, h2 {
+    color: var(--argenta-green);
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--argenta-green);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #006a41;
+}
+
+.error-message {
+    color: var(--red-alert);
+    margin-top: 1rem;
+    font-weight: bold;
+    min-height: 1.2em;
+}
+
+/* Styles de l'interface principale */
+.page {
+    display: none; /* Pages cachées par défaut */
+}
+.page.active {
+    display: block; /* Affiche la page active */
+}
+
+.header {
+    border-bottom: 2px solid var(--light-gray);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.header #datetime {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Alerte Compte Bloqué */
+.status-message {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 2px solid var(--argenta-green);
+    border-radius: 5px;
+}
+
+.blocked-alert {
+    background-color: var(--argenta-green);
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    animation: blink-red 1s infinite;
+}
+
+@keyframes blink-red {
+    50% { background-color: var(--red-alert); }
+}
+
+/* Liste des transactions */
+.transactions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.transactions li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--light-gray);
+    font-size: 0.9em;
+}
+
+.transactions li span:last-child {
+    font-weight: bold;
+    color: var(--argenta-green);
+}
+
+/* Section Carte */
+.card-display {
+    display: flex;
+    justify-content: center;
+}
+
+.visa-card {
+    width: 300px;
+    height: 180px;
+    background: linear-gradient(45deg, var(--argenta-green), #006a41);
+    border-radius: 15px;
+    color: var(--white);
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    font-family: 'Courier New', Courier, monospace;
+}
+.card-logo-visa {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+}
+.card-chip {
+    width: 40px;
+    height: 30px;
+    background: #c0c0c0;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.card-number {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+.card-holder {
+    font-size: 0.9rem;
+}
+.card-bank {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    font-weight: bold;
+}
+
+
+/* Message action bloquée */
+.blocked-action {
+    text-align: center;
+    padding: 2rem;
+    background-color: #fff0f0;
+    border: 1px solid var(--red-alert);
+    border-radius: 5px;
+}
+.blocked-action h2 {
+    color: var(--red-alert);
+}
+
+/* Formulaire de contact */
+.contact-form form {
+    margin-top: 1.5rem;
+}
+
+
+/* Barre de navigation inférieure */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--white);
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    padding: 0.5rem 0;
+}
+
+.bottom-nav .nav-btn {
+    background: none;
+    border: none;
+    color: var(--dark-gray);
+    cursor: pointer;
+    padding: 0.8rem 1rem;
+    font-size: 0.8rem;
+    text-decoration: none;
+    flex-grow: 1;
+    text-align: center;
+}
+.bottom-nav .nav-btn.active {
+    color: var(--argenta-green);
+    font-weight: bold;
+}
+</style></head> 
+ <body> 
+  <div class="login-container"> 
+   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Argenta_Logo.svg/2560px-Argenta_Logo.svg.png" alt="Logo Argenta Banque" class="logo"> 
+   <h1>Connexion</h1> 
+   <form id="login-form"> 
+    <div class="input-group"> <label for="username">Identifiant</label> 
+     <input type="text" id="username" name="username" required> 
+    </div> 
+    <div class="input-group"> <label for="password">Mot de passe</label> 
+     <input type="password" id="password" name="password" required> 
+    </div> <button type="submit" class="btn">Se connecter</button> 
+    <p id="error-message" class="error-message"></p> 
+   </form> 
+  </div> 
+  <script>
+        // Logique de connexion
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêche l'envoi du formulaire
+
+            // Identifiants et mot de passe corrects (cachés dans le code)
+            const correctUsername = '1007332609';
+            const correctPassword = '705001';
+
+            // Valeurs saisies par l'utilisateur
+            const enteredUsername = document.getElementById('username').value;
+            const enteredPassword = document.getElementById('password').value;
+
+            // Vérification
+            if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
+                // Redirection vers l'interface principale si correct
+                window.location.href = 'interface.html';
+            } else {
+                // Affichage d'un message d'erreur si incorrect
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Identifiant ou mot de passe incorrect.';
+            }
+        });
+    </script> 
+ 
+</body></html>
